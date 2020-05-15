@@ -30,10 +30,14 @@ class Ui_Dialog(object):
         self.button_stop_time.setGeometry(QtCore.QRect(300, 250, 140, 90))
         self.button_stop_time.setObjectName("button_stop_time")
         self.total_time_count = QtWidgets.QLCDNumber(Dialog)
-        self.total_time_count.setGeometry(QtCore.QRect(20, 140, 220, 60))
+        self.total_time_count.setGeometry(QtCore.QRect(20, 140, 220, 40))
+        self.total_time_count.setDigitCount(10)
+        self.total_time_count.setProperty("intValue", 0)
         self.total_time_count.setObjectName("total_time_count")
         self.total_money_count = QtWidgets.QLCDNumber(Dialog)
-        self.total_money_count.setGeometry(QtCore.QRect(20, 220, 220, 60))
+        self.total_money_count.setGeometry(QtCore.QRect(20, 200, 220, 40))
+        self.total_money_count.setSmallDecimalPoint(False)
+        self.total_money_count.setDigitCount(10)
         self.total_money_count.setObjectName("total_money_count")
 
         self.retranslateUi(Dialog)
@@ -42,6 +46,6 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.button_project_add.setText(_translate("Dialog", "Добавить проект"))
-        self.button_start_time.setText(_translate("Dialog", "Старт"))
-        self.button_stop_time.setText(_translate("Dialog", "Стоп"))
+        self.button_project_add.setText(_translate("Dialog", "PushButton"))
+        self.button_start_time.setText(_translate("Dialog", "PushButton"))
+        self.button_stop_time.setText(_translate("Dialog", "PushButton"))

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>460</width>
-    <height>360</height>
+    <width>360</width>
+    <height>285</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,14 +16,14 @@
   <widget class="QPushButton" name="button_project_add">
    <property name="geometry">
     <rect>
-     <x>300</x>
+     <x>240</x>
      <y>20</y>
-     <width>140</width>
+     <width>100</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>Создать проект</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="project_add_input">
@@ -31,7 +31,7 @@
     <rect>
      <x>20</x>
      <y>20</y>
-     <width>260</width>
+     <width>200</width>
      <height>25</height>
     </rect>
    </property>
@@ -41,7 +41,7 @@
     <rect>
      <x>20</x>
      <y>55</y>
-     <width>260</width>
+     <width>200</width>
      <height>25</height>
     </rect>
    </property>
@@ -49,59 +49,79 @@
   <widget class="QPushButton" name="button_start_time">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>140</y>
+     <x>30</x>
+     <y>175</y>
      <width>140</width>
      <height>90</height>
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>Старт</string>
    </property>
   </widget>
   <widget class="QPushButton" name="button_stop_time">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>250</y>
+     <x>190</x>
+     <y>175</y>
      <width>140</width>
      <height>90</height>
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>Стоп</string>
    </property>
   </widget>
-  <widget class="QLCDNumber" name="total_time_count">
+  <widget class="Line" name="line">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>140</y>
-     <width>220</width>
-     <height>40</height>
+     <y>90</y>
+     <width>320</width>
+     <height>10</height>
     </rect>
    </property>
-   <property name="digitCount">
-    <number>10</number>
-   </property>
-   <property name="intValue" stdset="0">
-    <number>0</number>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QLCDNumber" name="total_money_count">
+  <widget class="Line" name="line_2">
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>200</y>
-     <width>220</width>
-     <height>40</height>
+     <y>145</y>
+     <width>320</width>
+     <height>10</height>
     </rect>
    </property>
-   <property name="smallDecimalPoint">
-    <bool>false</bool>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
-   <property name="digitCount">
-    <number>10</number>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>110</y>
+     <width>150</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
    </property>
   </widget>
  </widget>

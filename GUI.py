@@ -60,9 +60,9 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Dialog", "Time count"))
         self.button_project_add.setText(_translate("Dialog", "Создать проект"))
         self.button_start_time.setText(_translate("Dialog", "Старт"))
         self.button_stop_time.setText(_translate("Dialog", "Стоп"))
-        self.total_time_count.setText(_translate("Dialog", "TextLabel"))
-        self.total_price_count.setText(_translate("Dialog", "TextLabel"))
+        self.total_time_count.setText(_translate("Dialog", ""))
+        self.total_price_count.setText(_translate("Dialog", ""))

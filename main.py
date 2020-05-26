@@ -19,11 +19,32 @@ class Project:
         cursor = db.cursor()
         new_project = ui.project_add_input.text()
         if new_project is not '':
-            base_name = "insert into PROJECTS (name) values ('{project}')"
+            base_name = "insert into PROJECTS (name, total_time, total_price) values ('{project}', 0, 0)"
             cursor.execute(base_name.format(project=new_project))
             ui.project_add_input.clear()
             db.commit()
             db.close()
+            ui.projects_list.addItem(new_project)
+            ui.projects_list.update()
+
+    def create_base(self):
+        hour_cost = 340
+        sql_create_projects = """CREATE TABLE if not exists 
+                projects (name TEXT, total_time INT, total_price INT)"""
+        sql_create_settings = """CREATE TABLE if not exists
+                settings (hour_cost INT)"""
+        sql_hour_price = """INSERT into settings (hour_cost) values ('{hour_cost}')"""
+        sql_check_hour_price = """SELECT hour_cost FROM settings"""
+        db = sqlite3.connect('database.db')
+        cursor = db.cursor()
+        cursor.execute(sql_create_projects)
+        cursor.execute(sql_create_settings)
+        cursor.execute(sql_check_hour_price)
+        hour_cost_now = cursor.fetchone()
+        if hour_cost_now is None:
+            cursor.execute(sql_hour_price.format(hour_cost=hour_cost))
+        db.commit()
+        db.close()
 
     def start_time(self):
         ui.total_time_count.setText('----------')
@@ -83,9 +104,8 @@ class Project:
                 pr_list.append(str(pr_name))
         return pr_list
 
-
 q = Project()
-
+q.create_base()
 """блок с кнопками"""
 
 ui.button_project_add.clicked.connect(Project.add_project)
@@ -94,3 +114,4 @@ ui.button_stop_time.clicked.connect(q.stop_time)
 ui.projects_list.addItems(q.project_list())
 
 exit(app.exec_())
+q.create_base()

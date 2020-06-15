@@ -47,11 +47,14 @@ class Project:
         db.close()
 
     def start_time(self):
-        ui.total_time_count.setText('----------')
-        ui.total_price_count.setText('----------')
+        ui.button_start_time.hide()
+        ui.button_stop_time.show()
+        ui.total_price_count.setText('Таймер запущен, идёт подсчёт')
         self.start = datetime.datetime.now()
 
     def stop_time(self):
+        ui.button_start_time.show()
+        ui.button_stop_time.hide()
         self.stop = datetime.datetime.now()
         self.delta = self.stop - self.start
         self.total_time()
@@ -66,16 +69,17 @@ class Project:
         seconds_now = int(self.delta.total_seconds())
         self.total_seconds = seconds_before + seconds_now
         hours = self.total_seconds // 3600
-        minutes = (self.delta.seconds % 3600) // 60
-        seconds = (self.delta.seconds % 3600) % 60
-        display_time = '{hours}ч. {minutes}м. {seconds}с.'
-        ui.total_time_count.setText(display_time.format(hours=hours, minutes=minutes, seconds=seconds))
-
+        minutes = (self.total_seconds % 3600) // 60
+        seconds = (self.total_seconds % 3600) % 60
+        print(self.total_seconds)
+        print(hours)
+        print(minutes)
+        print(seconds)
+        self.display_time = '{hours}:{minutes}:{seconds}'.format(hours=hours, minutes=minutes, seconds=seconds)
         sql = "UPDATE projects SET total_time = '{delta}' WHERE name = '{project_name}'"
         cursor.execute(sql.format(delta=self.total_seconds, project_name=project_name))
         db.commit()
         db.close()
-
         self.total_price()
 
     def total_price(self):
@@ -84,16 +88,14 @@ class Project:
         slq_hour_cost = "SELECT hour_cost FROM settings"
         cursor.execute(slq_hour_cost)
         hour_cost = cursor.fetchone()[0]
-        print(hour_cost)
         project_name = ui.projects_list.currentText()
         price = (self.total_seconds // 3600) * hour_cost
-        print(price)
         sql = "UPDATE projects SET total_price = '{delta}' WHERE name = '{project_name}'"
         cursor.execute(sql.format(delta=price, project_name=project_name))
         db.commit()
         db.close()
-        display_price = '{price} руб.'
-        ui.total_price_count.setText(display_price.format(price=price))
+        display_price = '     {price} руб.'.format(price=price)
+        ui.total_price_count.setText(self.display_time + display_price)
 
     def project_list(self):
         db = sqlite3.connect('database.db')
@@ -110,6 +112,8 @@ class Project:
 
 q = Project()
 q.create_base()
+ui.button_stop_time.hide()
+
 """блок с кнопками"""
 
 ui.button_project_add.clicked.connect(Project.add_project)

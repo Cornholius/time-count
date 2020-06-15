@@ -60,20 +60,22 @@ class Project:
         db = sqlite3.connect('database.db')
         cursor = db.cursor()
         project_name = ui.projects_list.currentText()
-        print(project_name)
         sql_time = "SELECT total_time FROM projects WHERE (name='{project_name}')"
         cursor.execute(sql_time.format(project_name=project_name))
         seconds_before = cursor.fetchone()[0]
         seconds_now = int(self.delta.total_seconds())
         self.total_seconds = seconds_before + seconds_now
         hours = self.total_seconds // 3600
-        minutes = (self.delta.seconds // 60) % 60
-        display_time = '{hours} ч. {minutes} м.'
-        ui.total_time_count.setText(display_time.format(hours=hours, minutes=minutes))
+        minutes = (self.delta.seconds % 3600) // 60
+        seconds = (self.delta.seconds % 3600) % 60
+        display_time = '{hours}ч. {minutes}м. {seconds}с.'
+        ui.total_time_count.setText(display_time.format(hours=hours, minutes=minutes, seconds=seconds))
+
         sql = "UPDATE projects SET total_time = '{delta}' WHERE name = '{project_name}'"
         cursor.execute(sql.format(delta=self.total_seconds, project_name=project_name))
         db.commit()
         db.close()
+
         self.total_price()
 
     def total_price(self):
@@ -82,8 +84,10 @@ class Project:
         slq_hour_cost = "SELECT hour_cost FROM settings"
         cursor.execute(slq_hour_cost)
         hour_cost = cursor.fetchone()[0]
+        print(hour_cost)
         project_name = ui.projects_list.currentText()
         price = (self.total_seconds // 3600) * hour_cost
+        print(price)
         sql = "UPDATE projects SET total_price = '{delta}' WHERE name = '{project_name}'"
         cursor.execute(sql.format(delta=price, project_name=project_name))
         db.commit()
